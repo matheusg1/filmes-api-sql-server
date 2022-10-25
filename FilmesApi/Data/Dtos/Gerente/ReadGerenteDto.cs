@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FilmesAPI.Models;
+using System.Collections.Generic;
 
 namespace FilmesApi.Data.Dtos.Gerente
 {
     public class ReadGerenteDto
     {
-        [Key]
-        [Required]
         public int Id { get; set; }
-
-        public int Nome { get; set; }
-
+        public string Nome { get; set; }
+        public List<Cinema> Cinemas { get; set; }
     }
 }

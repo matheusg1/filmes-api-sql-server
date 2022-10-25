@@ -62,7 +62,6 @@ namespace FilmesAPI.Controllers
             return NoContent();
         }
 
-
         [HttpDelete("{id}")]
         public IActionResult DeletaCinema(int id)
         {
@@ -75,6 +74,5 @@ namespace FilmesAPI.Controllers
             _context.SaveChanges();
             return NoContent();
         }
-
     }
 }
