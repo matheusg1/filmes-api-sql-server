@@ -1,4 +1,5 @@
-﻿using FilmesAPI.Models;
+﻿using FilmesApi.Models;
+using FilmesAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -14,6 +15,15 @@ namespace FilmesApi.Data
 
         public DbSet<Filme> Filmes { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Endereco>()
+                .HasOne(endereco => endereco.Cinema)
+                .WithOne(cinema => cinema.Endereco)
+                .HasForeignKey<Cinema>(cinema => cinema.EnderecoId);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //método a ser copiado
         {
