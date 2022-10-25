@@ -2,16 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
-namespace FilmesAPI.Data
+namespace FilmesApi.Data
 {
-    public class FilmeContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public FilmeContext(DbContextOptions<FilmeContext> opt) : base(opt)
+        public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
+
         }
+
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //método a ser copiado
         {
