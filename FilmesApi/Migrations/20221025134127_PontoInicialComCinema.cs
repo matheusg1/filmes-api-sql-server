@@ -1,11 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FilmesAPI.Migrations
+namespace FilmesApi.Migrations
 {
-    public partial class primeiraMigration : Migration
+    public partial class PontoInicialComCinema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Cinemas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EnderecoFK = table.Column<int>(type: "int", nullable: false),
+                    GerenteFK = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cinemas", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Filmes",
                 columns: table => new
@@ -15,7 +30,8 @@ namespace FilmesAPI.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Diretor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Genero = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Duracao = table.Column<int>(type: "int", nullable: false)
+                    Duracao = table.Column<int>(type: "int", nullable: false),
+                    ClassificacaoEtaria = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,6 +41,9 @@ namespace FilmesAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Cinemas");
+
             migrationBuilder.DropTable(
                 name: "Filmes");
         }
