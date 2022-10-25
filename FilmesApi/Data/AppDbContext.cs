@@ -16,13 +16,19 @@ namespace FilmesApi.Data
         public DbSet<Filme> Filmes { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Gerente> Gerentes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Endereco>()
+            builder.Entity<Endereco>()                              //1 > 1
                 .HasOne(endereco => endereco.Cinema)
                 .WithOne(cinema => cinema.Endereco)
                 .HasForeignKey<Cinema>(cinema => cinema.EnderecoId);
+
+            builder.Entity<Cinema>()                                //1 > N
+                .HasOne(cinema => cinema.Gerente)
+                .WithMany(gerente => gerente.Cinemas)
+                .HasForeignKey(cinema => cinema.GerenteId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //método a ser copiado
