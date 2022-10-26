@@ -12,13 +12,11 @@ namespace FilmesAPI.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Nome { get; set; }
-        [JsonIgnore]
         public virtual Endereco Endereco { get; set; }
         public int EnderecoId { get; set; }
-        [JsonIgnore]
         public virtual Gerente Gerente { get; set; }
-        [JsonIgnore]
         public int GerenteId { get; set; }
+        [JsonIgnore]
         public virtual List<Sessao> Sessoes { get; set; }
     }
 }
