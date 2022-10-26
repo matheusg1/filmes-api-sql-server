@@ -17,6 +17,7 @@ namespace FilmesApi.Data
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Gerente> Gerentes { get; set; }
+        public DbSet<Sessao> Sessoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +30,18 @@ namespace FilmesApi.Data
                 .HasOne(cinema => cinema.Gerente)
                 .WithMany(gerente => gerente.Cinemas)
                 .HasForeignKey(cinema => cinema.GerenteId);
+                //.OnDelete(DeleteBehavior.Restrict);               //Tipo de deleção
+                //.IsRequired(false)                                //Um cinema poderia existir com a chave estrangeira de gerente nula
+
+            builder.Entity<Sessao>()
+                .HasOne(sessao => sessao.Filme)
+                .WithMany(filme => filme.Sessoes)
+                .HasForeignKey(sessao => sessao.FilmeId);           //N > M
+
+            builder.Entity<Sessao>()
+                .HasOne(sessao => sessao.Cinema)
+                .WithMany(cinema => cinema.Sessoes)
+                .HasForeignKey(sessao => sessao.CinemaId);          //N > M
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //método a ser copiado

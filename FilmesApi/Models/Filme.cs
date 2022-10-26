@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FilmesApi.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FilmesAPI.Models
 {
@@ -6,18 +8,14 @@ namespace FilmesAPI.Models
     {
         [Required]
         public int Id { get; set; }
-
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Titulo { get; set; }
-
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Diretor { get; set; }
-        
         public string Genero { get; set; }
-
         [Range(1, 600, ErrorMessage = "A duração é de no mínimo {1} e máximo {2}")]
         public int Duracao { get; set; }
-
         public int ClassificacaoEtaria { get; set; }
+        public virtual List<Sessao> Sessoes { get; set; }
     }
 }

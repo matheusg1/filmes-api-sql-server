@@ -3,6 +3,7 @@ using FilmesApi.Data;
 using FilmesApi.Data.Dtos.Gerente;
 using FilmesApi.Models;
 using FilmesAPI.Data.Dtos;
+using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net.Mime;
@@ -42,7 +43,18 @@ namespace FilmesApi.Controllers
                 return Ok(gerenteDto);
             }
             return NotFound();
+        }
 
+        public IActionResult DeletaGerente(int id)
+        {
+            Gerente gerente = _context.Gerentes.FirstOrDefault(gerente => gerente.Id == id);
+            if (gerente == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(gerente);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }

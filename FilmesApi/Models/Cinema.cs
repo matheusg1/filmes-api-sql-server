@@ -1,4 +1,5 @@
 ﻿using FilmesApi.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -18,5 +19,6 @@ namespace FilmesAPI.Models
         public virtual Gerente Gerente { get; set; }
         [JsonIgnore]
         public int GerenteId { get; set; }
+        public virtual List<Sessao> Sessoes { get; set; }
     }
 }
