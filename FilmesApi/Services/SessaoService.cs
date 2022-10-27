@@ -2,7 +2,6 @@
 using FilmesApi.Data;
 using FilmesApi.Data.Dtos.Sessao;
 using FilmesApi.Models;
-using System;
 using System.Linq;
 
 namespace FilmesApi.Services

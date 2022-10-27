@@ -3,8 +3,6 @@ using FilmesApi.Data;
 using FilmesApi.Models;
 using FilmesAPI.Data.Dtos;
 using FluentResults;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
