@@ -2,6 +2,7 @@
 using FilmesApi.Services;
 using FilmesAPI.Data.Dtos;
 using FilmesAPI.Models;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,16 +35,16 @@ namespace FilmesAPI.Controllers
             {
                 return Ok(readDto);
             }
+            return NotFound();
         }
 
         [HttpGet("{id}")]
         public IActionResult RecuperaCinemasPorId(int id)
         {
-            Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
-            if (cinema != null)
+            ReadCinemaDto readDto = _cinemaService.RecuperaCinemasPorId(id);
+            if (readDto != null)
             {
-                ReadCinemaDto cinemaDto = _mapper.Map<ReadCinemaDto>(cinema);
-                return Ok(cinemaDto);
+                return Ok(readDto);
             }
             return NotFound();
         }
@@ -51,26 +52,22 @@ namespace FilmesAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult AtualizaCinema(int id, [FromBody] UpdateCinemaDto cinemaDto)
         {
-            Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
-            if (cinema == null)
+            Result resultado = _cinemaService.AtualizaCinema(id, cinemaDto);
+            if (resultado.IsFailed)
             {
                 return NotFound();
             }
-            _mapper.Map(cinemaDto, cinema);
-            _context.SaveChanges();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeletaCinema(int id)
         {
-            Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
-            if (cinema == null)
+            Result resultado = _cinemaService.DeletaCinema(id);
+            if (resultado.IsFailed)
             {
                 return NotFound();
             }
-            _context.Remove(cinema);
-            _context.SaveChanges();
             return NoContent();
         }
     }
